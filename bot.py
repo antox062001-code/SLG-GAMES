@@ -19,7 +19,7 @@ CANAL_BUSQUEDA_ID = 1506174440365494392  # Canal B (usuarios buscan)
 
 @client.event
 async def on_ready():
-    await tree.sync()
+    await tree.sync()  # 🔥 Registra los comandos slash en Discord
     print(f"✅ Bot conectado como {client.user}")
 
 @tree.command(name="buscar", description="Busca un recurso en el canal de recursos")
