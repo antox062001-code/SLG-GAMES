@@ -1,10 +1,8 @@
 import discord
 import os
 from discord import app_commands
-from dotenv import load_dotenv
 
-# Cargar variables desde el archivo .env
-load_dotenv()
+# Render usará la variable TOKEN desde su panel de Environment Variables
 TOKEN = os.getenv("TOKEN")
 
 # Configurar intents
@@ -15,7 +13,7 @@ intents.message_content = True
 client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
 
-# IDs de los canales
+# IDs de los canales (ajusta con los tuyos)
 CANAL_RECURSOS_ID = 1506174169971294359  # Canal A (solo tú escribes)
 CANAL_BUSQUEDA_ID = 1506174440365494392  # Canal B (usuarios buscan)
 
@@ -41,4 +39,13 @@ async def buscar(interaction: discord.Interaction, termino: str):
             break
 
     if encontrado:
-        # Enviar
+        # Responder con el link al mensaje original
+        await interaction.response.send_message(f"✅ Encontrado: {encontrado.jump_url}")
+    else:
+        await interaction.response.send_message("❌ No encontré nada con ese término.")
+
+# Ejecutar el bot
+try:
+    client.run(TOKEN)
+except Exception as e:
+    print(f"❌ Error al iniciar el bot: {e}")
